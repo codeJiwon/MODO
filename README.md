@@ -8,6 +8,19 @@ MODO는 여러 대의 차량이 함께 이동할 때 생기는 **이동 요청 �
 
 기존 위치 공유 앱은 일행의 위치를 보여줍니다. MODO는 함께 이동하는 과정에서 생기는 문제를 해결합니다.
 
+## 제출 요약
+
+| 항목 | 내용 |
+|---|---|
+| 앱 이름 | **MODO** (Move On, Drive On) · 팀 정지원 |
+| 한 줄 소개 | 여러 차량이 함께 이동할 때 이동 요청부터 합류 장소 합의, 내비게이션 경로 적용 확인, 합류 실패 재조율까지 돕는 Pleos Connect 그룹 드라이빙 코파일럿 |
+| APK 파일 위치 | [`apk/정지원_MODO_release.apk`](apk/정지원_MODO_release.apk) (release 빌드, 18.9MB) |
+| 실행 방법 | [실행 방법](#실행-방법) — APK 설치 후 **Demo Experience** |
+| 테스트 환경 및 필요한 설정 | [테스트 환경 및 필요한 설정](#테스트-환경-및-필요한-설정) |
+| Pleos Connect 에뮬레이터 버전 | **Pleos Connect Emulator v2.1.0** (Android 14 / API 34, `pleos_car_emulator` arm64-v8a) |
+| 화면 규격 | **2560×1440 px, 160dpi** (에뮬레이터 기본 디스플레이). 앱은 오른쪽 기본 창(약 1682×1210 px)에서 실행되며 창 분할·세로 창에도 비례 대응 |
+| 시연 영상 | [docs/video/MODO_demo.mp4](docs/video/MODO_demo.mp4) |
+
 | 핵심 | 내용 |
 |---|---|
 | Mobility Intent | 음성 또는 버튼 한 번으로 "휴식", "합류" 같은 이동 요청을 만들고 그룹에 공유 |
@@ -42,7 +55,7 @@ MODO는 여러 대의 차량이 함께 이동할 때 생기는 **이동 요청 �
 | 시연 영상 | [docs/video/MODO_demo.mp4](docs/video/MODO_demo.mp4) · 제작 방법과 자막·내레이션: [docs/video/](docs/video/README.md) |
 
 APK 정보: versionName 1.0.0 · applicationId `com.modo.drive` · minSdk 28 / targetSdk 34 · R8 축소 · APK Signature Scheme **v3** 서명 · 약 18.9MB.
-현재 APK는 개발용으로 생성한 키(`CN=MODO Team`)로 서명되어 있습니다. 공모전 제출 전 팀의 릴리스 키로 다시 빌드하세요(아래 "Release APK 빌드"). 서명 키와 비밀번호는 저장소에 없습니다.
+release 빌드 타입으로 생성하고 팀 릴리스 키(`CN=MODO Team`)로 서명했습니다. 서명 키와 비밀번호는 저장소에 포함하지 않습니다.
 
 ## 개발 환경
 
@@ -58,6 +71,21 @@ APK 정보: versionName 1.0.0 · applicationId `com.modo.drive` · minSdk 28 / t
 | Pleos SDK | NaviHelper 3.0.5, FusedLocation 1.1.3, SpeechToText 3.3.1, TextToSpeech 3.3.1 |
 | 에뮬레이터 | **Pleos Connect Emulator v2.1.0** (system-images;android-34;pleos_car_emulator;arm64-v8a, Android 14) |
 | 테스트한 화면 규격 | 2560×1440 px @160dpi (에뮬레이터 기본, 앱 창 약 1682×1210 px), Robolectric 1280×720dp(가로) |
+
+## 테스트 환경 및 필요한 설정
+
+| 항목 | 내용 |
+|---|---|
+| 테스트 기기 | Pleos Connect Emulator v2.1.0 (Android 14 / API 34), 2560×1440 px @160dpi |
+| 호스트 | macOS (Apple Silicon), Android Emulator 37.2, `-gpu swangle_indirect` (외장 GPU 없음) |
+| AVD 설정 | Automotive · API 34 · "Pleos Connect v2.1.0 APIs" · RAM 4GB · **Cold boot** (Pleos 가이드 기준) |
+| Demo Mode 필요 설정 | **없음** — 서버·네트워크·권한 없이 바로 실행 |
+| 권한 | `NAVI_ROUTE`, `NAVI_ROUTE_SEARCH`, `STT_SERVICE`, `TTS_SERVICE`는 설치 시 자동 허용(에뮬레이터 확인). `FUSED_LOCATION`은 LIVE 모드에서 "내 위치 공유"를 켤 때 런타임으로 요청 |
+| LIVE 모드 필요 설정 | 그룹 서버 실행(`./gradlew :backend:run`, 기본 포트 8080), 앱 서버 주소 기본값 `http://10.0.2.2:8080` |
+| 실제 내비게이션 연동 확인 | Demo Controller(오른쪽 아래 **DEMO**) → "내 차량(A)에 실제 Pleos NaviHelper 사용" 켜기 → Scene 5 실행 |
+| 음성 입력(STT) 확인 시 | 에뮬레이터 Extended Controls > Microphone에서 호스트 오디오 입력 허용 |
+
+참고: 외장 GPU가 없는 환경에서는 Pleos 내비게이션 지도 영역이 검게 보이고 Driving View 차량이 기본 모델로 보일 수 있습니다(에뮬레이터 제약, MODO 동작과 무관).
 
 ## 실행 방법
 

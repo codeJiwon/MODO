@@ -1,0 +1,23 @@
+# Gradle / build
+.gradle/
+.kotlin/
+build/
+**/build/
+local.properties
+captures/
+*.hprof
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# Signing secrets — never commit
+keystore.properties
+signing/
+*.jks
+*.keystore
+
+# Credentials (Pleos Playground My Project client id / secret, etc.)
+secrets.properties
+.env

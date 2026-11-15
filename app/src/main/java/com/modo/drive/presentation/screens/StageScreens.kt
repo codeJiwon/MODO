@@ -65,6 +65,7 @@ import com.modo.domain.model.JourneyState
 import com.modo.domain.model.MobilityRequestType
 import com.modo.domain.model.NavigationActionStatus
 import com.modo.domain.model.Place
+import com.modo.domain.model.ProposalStatus
 import com.modo.domain.model.RecoveryReason
 import com.modo.domain.model.RecoveryStatus
 import com.modo.domain.model.RendezvousProposal
@@ -111,9 +112,9 @@ fun RoomStage(ui: ModoUiState, vm: JourneyViewModel) {
     Column(verticalArrangement = Arrangement.spacedBy(20.dp), modifier = Modifier.testTag("stage-room")) {
         StageHeader(
             eyebrow = "JOURNEY ROOM",
-            title = if (state.proposals.any { it.arrivedVehicleIds.size == state.group.members.size && it.status.name == "APPROVED" })
-                "모두 합류했어요. ${state.group.destination.name}(으)로 함께 출발해요."
-            else "모든 차량이 ${state.group.destination.name}(으)로 이동 중이에요.",
+            title = if (state.proposals.any { it.status == ProposalStatus.APPROVED && it.supersededByProposalId == null && state.group.members.all { m -> m.id in it.arrivedVehicleIds } })
+                "모두 합류했어요. 이제 함께 목적지로 출발해요."
+            else "모든 차량이 공동 목적지를 향해 이동 중이에요.",
             subtitle = "필요한 일이 생기면 말로 요청하세요. MODO가 그룹의 결정을 도와드려요.",
         )
         if (deferred != null) {
@@ -400,7 +401,7 @@ fun RouteActionStage(ui: ModoUiState, vm: JourneyViewModel) {
     Column(verticalArrangement = Arrangement.spacedBy(18.dp), modifier = Modifier.testTag("stage-route")) {
         StageHeader(
             "GROUP ROUTE ACTION",
-            "${plan.location.name}(으)로 경로 변경",
+            "합류 장소 · ${plan.location.name}",
             if (plan.recoverySessionId != null) null else "그룹 합의와 각 차량의 실제 적용은 따로 확인해요.",
             accent = ModoColors.Mint,
         )

@@ -240,7 +240,7 @@ fun CompletedScreen(ui: ModoUiState, onClose: () -> Unit, onReplay: (() -> Unit)
                     Summary("목적지", state.group.destination.name)
                     Summary("차량", "${state.group.members.size}대")
                     Summary("인원", "${state.group.members.sumOf { it.passengerCount }}명")
-                    Summary("합류 계획", "${state.proposals.count { it.status.name == "APPROVED" }}회")
+                    Summary("합류 계획", "${state.proposals.count { it.status == com.modo.domain.model.ProposalStatus.APPROVED }}회")
                     Summary("재조율", "${state.recoverySessions.size}회")
                 }
             }

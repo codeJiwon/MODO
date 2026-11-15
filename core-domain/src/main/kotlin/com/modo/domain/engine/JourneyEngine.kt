@@ -264,8 +264,8 @@ class JourneyEngine(private val ids: IdGenerator) {
         var next = state.copy(proposals = state.proposals + proposal)
             .withEvent(
                 now, c.actorId, JourneyEventKind.PROPOSAL_CREATED,
-                if (recovery != null) "차량 ${proposer.vehicleLabel}가 새로운 합류 장소로 ${c.place.name}을(를) 제안했어요."
-                else "차량 ${proposer.vehicleLabel}가 ${c.place.name}을(를) 합류 장소로 제안했어요.",
+                if (recovery != null) "차량 ${proposer.vehicleLabel}가 새로운 합류 장소를 제안했어요 · ${c.place.name}"
+                else "차량 ${proposer.vehicleLabel}가 합류 장소를 제안했어요 · ${c.place.name}",
                 proposal.id,
             )
         if (linkedRequest != null && linkedRequest.status == MobilityRequestStatus.OPEN) {
@@ -349,7 +349,7 @@ class JourneyEngine(private val ids: IdGenerator) {
         }
         return Outcome.Changed(
             state.copy(navigationActions = state.navigationActions + actions)
-                .withEvent(now, c.actorId, JourneyEventKind.NAVIGATION_DISPATCHED, "각 차량에 ${proposal.location.name}(으)로 경로 변경을 요청했어요.", proposal.id),
+                .withEvent(now, c.actorId, JourneyEventKind.NAVIGATION_DISPATCHED, "각 차량에 경로 변경을 요청했어요 · ${proposal.location.name}", proposal.id),
         )
     }
 
@@ -511,7 +511,7 @@ class JourneyEngine(private val ids: IdGenerator) {
                 } else it
             },
         )
-        val message = if (proposal.recoverySessionId != null) "새로운 합류 계획이 확정되었어요." else "모든 차량이 동의했어요. ${proposal.location.name}이(가) 합류 장소로 확정되었어요."
+        val message = if (proposal.recoverySessionId != null) "새로운 합류 계획이 확정되었어요." else "모든 차량이 동의했어요. 합류 장소 확정 · ${proposal.location.name}"
         return next.withEvent(now, null, JourneyEventKind.PROPOSAL_APPROVED, message, proposalId)
     }
 

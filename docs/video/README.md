@@ -10,7 +10,7 @@
 
 ## 녹화 준비
 1. Pleos Connect Emulator v2.1.0 실행 (권장: 외장 GPU PC에서 `-gpu host`; 이 저장소 검증 환경은 Apple Silicon에서 `-gpu swangle_indirect`)
-2. `adb install apk/팀명_MODO_release.apk`
+2. `adb install apk/정지원_MODO_release.apk`
 3. 녹화: 에뮬레이터 Extended Controls > Record and Playback, 또는
    `adb shell screenrecord --bit-rate 12000000 /sdcard/modo_1.mp4` (최대 3분, 장면별로 나눠 녹화 권장)
 4. 앱 실행 → **Demo Experience** → 오른쪽 아래 **DEMO** → **Reset Demo**

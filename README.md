@@ -32,7 +32,7 @@ MODO는 여러 대의 차량이 함께 이동할 때 생기는 **이동 요청 �
 | Android 앱 소스 | `app/` (Kotlin, Jetpack Compose) |
 | 공유 도메인 엔진 | `core-domain/` (순수 Kotlin) |
 | 그룹 동기화 서버 | `backend/` (Kotlin Ktor) |
-| **Release APK** | `apk/팀명_MODO_release.apk` — 제출 시 `팀명`을 실제 참가팀 명칭으로 바꾸세요 |
+| **Release APK** | `apk/정지원_MODO_release.apk` (팀: 정지원) |
 | 아키텍처 | [docs/architecture.md](docs/architecture.md) |
 | SDK 연동 검증 결과 | [docs/sdk-verification.md](docs/sdk-verification.md) |
 | Demo Mode 안내 | [docs/demo-scenario.md](docs/demo-scenario.md) |
@@ -61,7 +61,7 @@ APK 정보: versionName 1.0.0 · applicationId `com.modo.drive` · minSdk 28 / t
 
 ### 1) 바로 설치
 ```bash
-adb install apk/팀명_MODO_release.apk
+adb install apk/정지원_MODO_release.apk
 ```
 런처에서 **MODO** 실행 → **Demo Experience**.
 
@@ -89,7 +89,7 @@ Pleos SDK는 공식 Maven 저장소(`https://nexus-playground.pleos.ai/repositor
 ```bash
 cp keystore.properties.example keystore.properties   # 값 입력, 키는 signing/ 아래 (둘 다 .gitignore)
 ./gradlew :app:assembleRelease
-cp app/build/outputs/apk/release/app-release.apk "apk/<팀명>_MODO_release.apk"
+cp app/build/outputs/apk/release/app-release.apk "apk/정지원_MODO_release.apk"
 ```
 
 ## Demo Mode

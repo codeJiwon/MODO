@@ -13,7 +13,7 @@
 | Pleos SDK 연동 계측 테스트 | `app/src/androidTest` | Pleos Connect Emulator v2.1.0 | **4 / 4 통과** (STT 실제 인식은 미검증) |
 | 서버 통합 테스트 | `backend/src/test` | JVM (Ktor testApplication) | **5 / 5 통과** |
 | 서버 스모크 테스트 | `backend/scripts/smoke-test.sh` | 실제 서버 프로세스 + curl | 통과 (아래 출력) |
-| Release APK 수동 시연 | `apk/팀명_MODO_release.apk` | Pleos Connect Emulator v2.1.0 | Scene 1~8 전체 실행, 크래시 없음 |
+| Release APK 수동 시연 | `apk/정지원_MODO_release.apk` | Pleos Connect Emulator v2.1.0 | Scene 1~8 전체 실행, 크래시 없음 |
 
 `ScreenshotCaptureTest`(문서용 스크린샷 생성기)는 `-Pmodo.screenshots=true`일 때만 동작하므로 위 집계에서 제외했습니다.
 

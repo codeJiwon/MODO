@@ -44,8 +44,10 @@ android {
 
     buildTypes {
         release {
-            // Pleos SDK는 AIDL/Gson 리플렉션을 사용하므로 난독화로 인한 런타임 오류를 피하기 위해 축소를 끈다.
-            isMinifyEnabled = false
+            // R8 축소 사용. Pleos SDK(AIDL/Gson/JNA)는 proguard-rules.pro에서 전체 보존한다.
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             if (keystoreProperties.isNotEmpty()) {
                 signingConfig = signingConfigs.getByName("release")
             }

@@ -1,6 +1,16 @@
-# 시연 영상 제작 자료 (약 90초)
+# 시연 영상 (약 90초)
 
-이 개발 환경에는 영상 인코딩 도구(ffmpeg)가 없어 **MP4는 만들지 않았습니다.** 아래 녹화 순서, 자막(`subtitles_ko.srt`), 내레이션, 편집 가이드로 제작할 수 있습니다. 90초는 편집 목표이며 공식 필수 규격이 아닙니다.
+**완성본: [`MODO_demo_정지원.mp4`](MODO_demo_정지원.mp4)** — 1920×1080, 93초, H.264/AAC, 한국어 내레이션·자막 포함.
+
+## 완성본 제작 방법과 사실관계
+- 영상의 앱 화면은 모두 **Pleos Connect Emulator v2.1.0에서 Release APK(`apk/정지원_MODO_release.apk`)를 실제 실행한 화면**입니다.
+- 이 개발 PC(외장 GPU 없음)의 에뮬레이터는 소프트웨어 렌더링이라 `screenrecord`가 프레임을 받지 못했습니다. 그래서 `adb exec-out screencap`으로 화면을 연속 캡처(약 1.2fps)하고 장면 전환 시각을 기록한 뒤, `tools/video/build_video.py`로 1920×1080 영상으로 합성했습니다. 일부 구간은 내레이션 길이에 맞춰 최대 약 2배속으로 압축했습니다.
+- 장면마다 왼쪽 패널에 **`DEMO · 시뮬레이션 데이터`** 또는 **`실제 Pleos SDK 연동`** 배지를 표시했습니다. 실제 SDK 장면은 "NaviHelper 실제 연동" 1개 구간(Pleos 내비게이션 앱이 MODO 요청으로 횡성휴게소 안내를 시작하고, MODO가 `getDestinationInfo`로 목적지를 확인)입니다. 이때 내비 지도 영역이 검게 보이는 것은 에뮬레이터 GPU 제약입니다.
+- 내레이션은 macOS 음성 합성(`say -v Yuna`)으로 만들었으며, Pleos TextToSpeech SDK 출력이 아닙니다.
+- 재생성: `python3 tools/video/build_video.py <capture_dir> docs/video/MODO_demo_정지원.mp4` (PIL, ffmpeg 필요)
+
+## 직접 다시 녹화할 때 (외장 GPU 환경 권장)
+아래 녹화 순서, 자막(`subtitles_ko.srt`), 내레이션, 편집 가이드를 사용하세요. 90초는 편집 목표이며 공식 필수 규격이 아닙니다.
 
 ## 원칙
 - 앱의 **실제 실행 화면**만 사용합니다 (목업/합성 화면 금지).

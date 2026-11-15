@@ -2,6 +2,8 @@
 
 > 따로 달려도, 함께 도착하는 여행.
 
+🎬 **시연 영상**: [docs/video/MODO_demo.mp4](docs/video/MODO_demo.mp4) (93초, Pleos Connect Emulator 실제 실행 화면) · 📦 **APK**: [apk/정지원_MODO_release.apk](apk/정지원_MODO_release.apk) · 📝 [제출 정보](docs/submission.md) · 팀 **정지원**
+
 MODO는 여러 대의 차량이 함께 이동할 때 생기는 **이동 요청 → 그룹 의사결정 → 경로 변경 → 실행 상태 확인 → 합류 실패 복구**를 하나의 흐름으로 해결하는 Pleos Connect용 그룹 드라이빙 코파일럿입니다.
 
 기존 위치 공유 앱은 일행의 위치를 보여줍니다. MODO는 함께 이동하는 과정에서 생기는 문제를 해결합니다.
@@ -37,7 +39,7 @@ MODO는 여러 대의 차량이 함께 이동할 때 생기는 **이동 요청 �
 | SDK 연동 검증 결과 | [docs/sdk-verification.md](docs/sdk-verification.md) |
 | Demo Mode 안내 | [docs/demo-scenario.md](docs/demo-scenario.md) |
 | 테스트 결과 | [docs/test-results.md](docs/test-results.md) |
-| 시연 영상 제작 자료 | [docs/video/](docs/video/README.md) (타임라인, 내레이션, 자막 SRT) |
+| 시연 영상 | [docs/video/MODO_demo.mp4](docs/video/MODO_demo.mp4) · 제작 방법과 자막·내레이션: [docs/video/](docs/video/README.md) |
 
 APK 정보: versionName 1.0.0 · applicationId `com.modo.drive` · minSdk 28 / targetSdk 34 · R8 축소 · APK Signature Scheme **v3** 서명 · 약 18.9MB.
 현재 APK는 개발용으로 생성한 키(`CN=MODO Team`)로 서명되어 있습니다. 공모전 제출 전 팀의 릴리스 키로 다시 빌드하세요(아래 "Release APK 빌드"). 서명 키와 비밀번호는 저장소에 없습니다.

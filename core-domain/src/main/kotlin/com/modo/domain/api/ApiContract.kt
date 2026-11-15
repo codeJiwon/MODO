@@ -57,5 +57,5 @@ data class ErrorResponse(val error: DomainError)
 val ModoJson: Json = Json {
     ignoreUnknownKeys = true
     encodeDefaults = true
-    classDiscriminator = "type"
+    classDiscriminator = "@type"
 }

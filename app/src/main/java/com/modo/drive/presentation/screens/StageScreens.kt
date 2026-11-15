@@ -254,25 +254,28 @@ fun IntentStage(ui: ModoUiState, vm: JourneyViewModel) {
                         Text(request.type.name, style = MaterialTheme.typography.labelSmall)
                     }
                 }
-                ModoCard(accent = ModoColors.Amber) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Rounded.Groups, null, tint = ModoColors.Amber, modifier = Modifier.size(32.dp))
-                        Spacer(Modifier.width(12.dp))
-                        Column {
-                            Text("그룹 알림", style = MaterialTheme.typography.labelMedium)
-                            Text(
-                                state.events.lastOrNull { it.refId == request.id }?.message ?: "차량 ${requester}의 요청",
-                                style = MaterialTheme.typography.titleLarge,
-                            )
+                Row(horizontalArrangement = Arrangement.spacedBy(18.dp)) {
+                    ModoCard(accent = ModoColors.Amber, modifier = Modifier.weight(1f)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Rounded.Groups, null, tint = ModoColors.Amber, modifier = Modifier.size(32.dp))
+                            Spacer(Modifier.width(12.dp))
+                            Column {
+                                Text("그룹 알림", style = MaterialTheme.typography.labelMedium)
+                                Text(
+                                    state.events.lastOrNull { it.refId == request.id }?.message ?: "차량 ${requester}의 요청",
+                                    style = MaterialTheme.typography.titleLarge,
+                                )
+                            }
                         }
                     }
-                }
-                ModoCard(accent = ModoColors.Blue) {
-                    Text("합류 장소를 정할까요?", style = MaterialTheme.typography.headlineMedium)
-                    Spacer(Modifier.height(16.dp))
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        ModoButton("합류 장소 정하기", vm::openRendezvousPicker, icon = Icons.Rounded.Place, modifier = Modifier.testTag("open-picker"))
-                        ModoButton("나중에", { vm.dismissRequest(request.id) }, kind = ButtonKind.GHOST)
+                    ModoCard(accent = ModoColors.Blue, modifier = Modifier.weight(1f)) {
+                        Text("다음 행동", style = MaterialTheme.typography.labelMedium)
+                        Text("합류 장소를 정할까요?", style = MaterialTheme.typography.headlineMedium)
+                        Spacer(Modifier.height(14.dp))
+                        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                            ModoButton("합류 장소 정하기", vm::openRendezvousPicker, icon = Icons.Rounded.Place, modifier = Modifier.testTag("open-picker"))
+                            ModoButton("나중에", { vm.dismissRequest(request.id) }, kind = ButtonKind.GHOST)
+                        }
                     }
                 }
             }

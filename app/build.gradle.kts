@@ -73,6 +73,13 @@ android {
     }
     testOptions {
         unitTests.isIncludeAndroidResources = true
+        unitTests.all { test ->
+            // ./gradlew :app:testDebugUnitTest --tests '*ScreenshotCaptureTest*' -Pmodo.screenshots=true
+            if (project.findProperty("modo.screenshots") == "true") {
+                test.systemProperty("modo.screenshotDir", rootProject.file("docs/screenshots").absolutePath)
+                test.outputs.upToDateWhen { false }
+            }
+        }
     }
 }
 

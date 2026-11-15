@@ -70,7 +70,7 @@ import com.modo.drive.presentation.theme.ModoColors
 fun JourneyScreen(ui: ModoUiState, vm: JourneyViewModel, isWide: Boolean, onRequestLocationConsent: () -> Unit) {
     val state = ui.journey ?: return
     Box(Modifier.fillMaxSize().background(ModoColors.Navy).testTag("screen-journey")) {
-        Column(Modifier.fillMaxSize().padding(horizontal = 28.dp, vertical = 20.dp)) {
+        Column(Modifier.fillMaxSize().padding(start = 28.dp, end = 28.dp, top = 20.dp, bottom = 84.dp)) {
             TopBar(ui, vm)
             Spacer(Modifier.height(18.dp))
             if (isWide) {
@@ -100,17 +100,20 @@ fun JourneyScreen(ui: ModoUiState, vm: JourneyViewModel, isWide: Boolean, onRequ
                 }
             }
         }
-        Column(
-            Modifier.align(Alignment.BottomCenter).padding(bottom = 22.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+        BannerBar(
+            ui.banner, vm::dismissBanner, vm::retryLastCommand,
+            Modifier.align(Alignment.BottomCenter).padding(bottom = 92.dp).testTag("banner"),
+        )
+        // 하단 정보 줄: 데모 표시 | 음성 안내 자막 | 데모 조작. 콘텐츠를 가리지 않도록 영역을 따로 둔다.
+        Row(
+            Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp),
+            verticalAlignment = Alignment.Bottom,
         ) {
-            SpokenCaption(ui.spoken)
-            Spacer(Modifier.height(8.dp))
-            BannerBar(ui.banner, vm::dismissBanner, vm::retryLastCommand, Modifier.testTag("banner"))
-        }
-        if (ui.isDemo) {
-            DemoWatermark(Modifier.align(Alignment.BottomStart).padding(16.dp))
-            DemoControls(ui, vm, Modifier.align(Alignment.BottomEnd).padding(16.dp))
+            if (ui.isDemo) DemoWatermark(Modifier.padding(bottom = 10.dp))
+            Box(Modifier.weight(1f).padding(horizontal = 14.dp), contentAlignment = Alignment.BottomCenter) {
+                SpokenCaption(ui.spoken)
+            }
+            if (ui.isDemo) DemoControls(ui, vm, Modifier)
         }
         if (ui.settingsOpen) SettingsSheet(ui, vm)
     }
@@ -124,7 +127,7 @@ private fun StageArea(ui: ModoUiState, vm: JourneyViewModel, modifier: Modifier)
         modifier = modifier,
         label = "stage",
     ) { stage ->
-        Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(bottom = 120.dp)) {
+        Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(bottom = 24.dp)) {
             when (stage) {
                 Stage.ROOM -> RoomStage(ui, vm)
                 Stage.INTENT -> IntentStage(ui, vm)

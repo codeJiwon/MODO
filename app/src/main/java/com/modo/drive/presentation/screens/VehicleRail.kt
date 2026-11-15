@@ -22,6 +22,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -133,8 +135,10 @@ fun RouteSchematic(
             )
         }
         Spacer(Modifier.height(10.dp))
-        Canvas(Modifier.fillMaxWidth().height(54.dp)) {
-            val y = size.height * 0.55f
+        val measurer = rememberTextMeasurer()
+        val labelStyle = MaterialTheme.typography.labelSmall
+        Canvas(Modifier.fillMaxWidth().height(78.dp)) {
+            val y = 44.dp.toPx()
             val left = 12.dp.toPx()
             val right = size.width - 12.dp.toPx()
             fun x(t: Float) = left + (right - left) * t
@@ -148,7 +152,11 @@ fun RouteSchematic(
                     center = Offset(sx, y),
                     style = if (isPlan) Stroke(width = 4.dp.toPx()) else androidx.compose.ui.graphics.drawscope.Fill,
                 )
+                val label = measurer.measure(stop.name.removeSuffix("휴게소"), labelStyle.copy(color = if (isPlan) ModoColors.Mint else ModoColors.TextFaint))
+                drawText(label, topLeft = Offset(sx - label.size.width / 2f, y + 14.dp.toPx()))
             }
+            val destLabel = measurer.measure(destination.name, labelStyle)
+            drawText(destLabel, topLeft = Offset(x(1f) - destLabel.size.width, y + 14.dp.toPx()))
             drawLine(
                 ModoColors.TextFaint, Offset(x(1f), y - 22.dp.toPx()), Offset(x(1f), y + 8.dp.toPx()),
                 strokeWidth = 3.dp.toPx(), pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 6f)),
@@ -159,15 +167,6 @@ fun RouteSchematic(
                 drawCircle(color.copy(alpha = 0.25f), radius = 14.dp.toPx(), center = Offset(cx, y - 16.dp.toPx()))
                 drawCircle(color, radius = 8.dp.toPx(), center = Offset(cx, y - 16.dp.toPx()))
             }
-        }
-        Row(Modifier.fillMaxWidth()) {
-            Text("출발", style = MaterialTheme.typography.labelSmall)
-            Spacer(Modifier.weight(1f))
-            stops.forEach {
-                Text(it.name.removeSuffix("휴게소"), style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(horizontal = 6.dp))
-            }
-            Spacer(Modifier.weight(1f))
-            Text(destination.name, style = MaterialTheme.typography.labelSmall)
         }
         Spacer(Modifier.height(4.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
